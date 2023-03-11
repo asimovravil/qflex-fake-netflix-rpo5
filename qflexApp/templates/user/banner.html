@@ -1,0 +1,102 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/png" href="{% static './popcorn.png' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смотри кино брат тут, тут халява 1080р</title>
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <link rel="stylesheet" href="{% static './css/bootstrap.min.css' %}">
+</head>
+
+<body>
+
+<header class="navbar navbar-expand-lg bg-success navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'homePage' %}">KINO Almaty Center</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'allMovies' %}">Все фильмы</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'logoutUser' %}">{{ user.username }} - Выйти с аккаунта</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div class="modal fade" id="login" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="loginLabel">Авторизоваться</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ loginForm|crispy }}
+                        <button type="submit" class="btn btn-success">Логин</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade" id="registration" tabindex="-1" aria-labelledby="registrationLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="registrationLabel">Зарегистрироваться</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ signUpForm|crispy }}
+                        <button type="submit" class="btn btn-success">Регистрация</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="banner">
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="{% static './img/logo.svg' %}" alt="" width="72" height="57">
+        <h1 class="text-success display-5 fw-bold">RavaKino</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4 text-light text-align">Хороший кинотеатр - это место, где посетители могут получить максимальное удовольствие от просмотра фильма. Кинотеатр должен обеспечивать комфортный и приятный опыт просмотра фильма, чтобы посетители могли полностью наслаждаться фильмом и получить удовольствие от времени, проведенного в кинотеатре.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <button type="button" class="btn btn-success btn-lg px-4 gap-3" data-bs-toggle="modal" data-bs-target="#login">
+                    Логин
+                </button>
+                <button type="button" class="btn btn-outline-success btn-lg px-4" data-bs-toggle="modal"
+                        data-bs-target="#registration">
+                    Регистрация
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

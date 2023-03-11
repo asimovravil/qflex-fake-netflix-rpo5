@@ -1,0 +1,28 @@
+{% extends '../base.html' %}
+
+{% block title %}Логин{% endblock %}
+
+{% block content %}
+<style>
+    #id_username, #id_password {
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #000;
+        display block;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+</style>
+<div class="container mt-5 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <h1>Логин</h1>
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-dark">Логин</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
